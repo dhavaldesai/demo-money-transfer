@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.remittance.dao.UserDao">
+	<resultMap type="com.demo.remittance.model.User" id="user">
+		<result property="id" column="id" javaType="java.lang.Long" />
+		<result property="fname" column="fname" javaType="java.lang.String" />
+		<result property="mname" column="mname" javaType="java.lang.String" />
+		<result property="lname" column="lname" javaType="java.lang.String" />
+		<result property="mobile" column="mobile" javaType="java.lang.String" />
+		<result property="email" column="email" javaType="java.lang.String" />
+		<result property="dob" column="dob" javaType="java.lang.String" />
+		<result property="username" column="username" javaType="java.lang.String" />
+		<result property="password" column="password" javaType="java.lang.String" />
+		<result property="active" column="active" javaType="java.lang.Integer" />
+		<result property="isVerified" column="is_verified" javaType="java.lang.Integer" />
+		<result property="createdBy" column="created_by" javaType="java.lang.Long" />
+		<result property="updatedBy" column="updated_by" javaType="java.lang.Long" />
+	</resultMap>
+
+	<insert id="save" parameterType="map" useGeneratedKeys="true"
+		keyColumn="id" keyProperty="id">
+		INSERT INTO user (id, fname, mname, lname,
+		mobile, email, dob, username, password, active, is_verified,
+		created_by, updated_by) VALUES (#{id}, #{fname}, #{mname}, #{lname},
+		#{mobile}, #{email}, #{dob}, #{username}, #{password}, #{active},
+		#{isVerified}, #{createdBy}, #{updated_by})
+	</insert>
+	
+	<select id="getUserById" parameterType="java.lang.Long" resultMap="user">
+		SELECT * FROM user WHERE id=#{id}
+	</select>
+
+	<update id="updateUserById" parameterType="com.demo.remittance.model.User">
+		UPDATE user SET
+		fname = #{fname}, mname = #{mname}, lname = #{lname}, 
+		mobile = #{mobile}, email = #{email}, dob = #{dob} 
+		WHERE id = #{id}
+	</update>
+
+	<update id="deleteUserById" parameterType="java.lang.Long">
+		UPDATE user SET active = 0  WHERE id=#{id}
+	</update>
+
+</mapper>
